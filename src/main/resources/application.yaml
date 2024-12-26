@@ -1,0 +1,43 @@
+spring:
+
+  profiles:
+    active: local
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: user
+    password: password
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+
+  server:
+    port: 8080
+
+  logging:
+    level:
+      root: info
+
+services:
+  s3:
+    endpoint: http://127.0.0.1:9000
+    accessKey: user
+    secretKey: password
+    bucketName: corpbucket
+    connectionTimeout: 50_000
+    socketTimeout: 50_000
+
+executor:
+  capacity: 10
+  corePoolSize: 1
+  maximumPoolSize: 10
+  keepAliveTime: 60
